@@ -19,9 +19,13 @@ namespace Codenation.Challenge.Services
         {
             return _context.Quotes
                 .Where(x => x.Episode == _randomService
-                .RandomInteger(_context.Quotes
-                .Max(ep => ep.Episode)))
-                .Select(x => x).First();
+                    .RandomInteger(_context.Quotes
+                        .Max(ep => ep.Episode
+                        )
+                    )
+                )
+                .Select(x => x)
+                .First();
         }
 
         public Quote GetAnyQuote(string actor)
@@ -32,14 +36,12 @@ namespace Codenation.Challenge.Services
                 .Select(x => x)
                 .ToList();
 
-            var maxrandom = listActor.Count();
-
-            if (maxrandom == 0)
+            if (listActor.Count() == 0)
             {
                 return null;
             }
 
-            return listActor[_randomService.RandomInteger(maxrandom)];
+            return listActor[_randomService .RandomInteger(listActor.Count())];
         }
     }
 }
